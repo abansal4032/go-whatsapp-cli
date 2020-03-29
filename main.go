@@ -2,27 +2,58 @@ package main
 
 import (
 	"fmt"
-	"github.com/Baozisoftware/qrcode-terminal-go"
-	"github.com/Rhymen/go-whatsapp"
+	"flag"
 	"os"
-	"time"
+
+	"github.com/abansal4032/go-whatsapp-cli/executors"
+	"github.com/abansal4032/go-whatsapp-cli/utils"
 )
 
-func main() {
-	wac, err := whatsapp.NewConn(5 * time.Second)
+func commandUsage(err error) {
+	// TODO : graceful error handling here
 	if err != nil {
-		panic(err)
+		fmt.Println("correct command usage is described below:")
+		flag.PrintDefaults()
 	}
+}
 
-	qr := make(chan string)
-	go func() {
-		terminal := qrcodeTerminal.New()
-		terminal.Get(<-qr).Print()
+func main() {
+	sendTextCmd := flag.NewFlagSet("sendText", flag.ExitOnError)
+	var err error
+	defer func() {
+		commandUsage(err)
 	}()
 
-	session, err := wac.Login(qr)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "error during login: %v\n", err)
+	switch os.Args[1] {
+	
+	case "login":
+		if err = executors.Login(); err != nil {
+			fmt.Println(err)
+			return
+		}
+
+	case "logout":
+		if err = executors.Logout(); err != nil {
+			fmt.Println(err)
+			return
+		}
+
+	case "sendText":
+		//var args *utils.SendArgs
+		_, err = utils.ParseSendArgs(sendTextCmd, os.Args[2:])
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		/*if err = executors.SendText(args); err != nil {
+			fmt.Println(err)
+			return
+		}*/
+	
+	default:
+		fmt.Println("wrong command provided. please see below for the list of permitted actions")
+		flag.PrintDefaults()
+		return
+	
 	}
-	fmt.Printf("login successful, session: %v\n", session)
 }
