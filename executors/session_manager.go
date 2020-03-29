@@ -17,6 +17,12 @@ func Login() error {
 	if err != nil {
 		return fmt.Errorf("error while logging in %v\n", err)
 	}
+	return LoginWithConnection(wac)
+}
+
+// LoginWithConnection logs in the user using a provided connection. It ries to see if a session already exists. If not, tries to create a
+// new one using qr scanned on the terminal.
+func LoginWithConnection(wac *whatsapp.Conn) error {
 	//load saved session
 	session, err := readSession()
 	if err == nil {
@@ -25,7 +31,9 @@ func Login() error {
 		if err != nil {
 			return fmt.Errorf("restoring failed: %v\n", err)
 		}
+		fmt.Println("already logged in, using the same session")
 	} else {
+		fmt.Println("no saved login info found, initiating new login")
 		//no saved session -> regular login
 		qr := make(chan string)
 		go func() {
@@ -43,6 +51,7 @@ func Login() error {
 	if err != nil {
 		return fmt.Errorf("error saving session: %v\n", err)
 	}
+	fmt.Println("login successful")
 	return nil
 }
 

@@ -1,19 +1,23 @@
 package main
 
 import (
-	"fmt"
 	"flag"
+	"fmt"
 	"os"
 
 	"github.com/abansal4032/go-whatsapp-cli/executors"
 	"github.com/abansal4032/go-whatsapp-cli/utils"
 )
 
-func commandUsage(err error) {
+func commandUsage(err error, f *flag.FlagSet) {
+	fmt.Println("correct command usage is described below:")
+	f.PrintDefaults()
+}
+
+func errorHandler(err error) {
 	// TODO : graceful error handling here
 	if err != nil {
-		fmt.Println("correct command usage is described below:")
-		flag.PrintDefaults()
+		fmt.Printf("flow errored out : %v\n", err.Error())
 	}
 }
 
@@ -21,39 +25,35 @@ func main() {
 	sendTextCmd := flag.NewFlagSet("sendText", flag.ExitOnError)
 	var err error
 	defer func() {
-		commandUsage(err)
+		errorHandler(err)
 	}()
 
 	switch os.Args[1] {
-	
+
 	case "login":
 		if err = executors.Login(); err != nil {
-			fmt.Println(err)
 			return
 		}
 
 	case "logout":
 		if err = executors.Logout(); err != nil {
-			fmt.Println(err)
 			return
 		}
 
 	case "sendText":
-		//var args *utils.SendArgs
-		_, err = utils.ParseSendArgs(sendTextCmd, os.Args[2:])
+		var args *utils.SendArgs
+		args, err = utils.ParseSendArgs(sendTextCmd, os.Args[2:])
 		if err != nil {
-			fmt.Println(err)
+			commandUsage(err, sendTextCmd)
 			return
 		}
-		/*if err = executors.SendText(args); err != nil {
-			fmt.Println(err)
+		if err = executors.SendText(args.GetContent(), args.GetReciever()); err != nil {
 			return
-		}*/
-	
+		}
+
 	default:
-		fmt.Println("wrong command provided. please see below for the list of permitted actions")
-		flag.PrintDefaults()
+		// TODO : add a list of all permitted actions
+		err = fmt.Errorf("wrong command provided. please see below for the list of permitted actions")
 		return
-	
 	}
 }
