@@ -16,7 +16,7 @@ fmt:
 	$(GOFMT) ./...
 
 .PHONY: lint
-fmt: 
+lint:
 	$(GOLIST) ./... | grep -v /vendor/ | xargs -L1 golint
 
 .PHONY: vet

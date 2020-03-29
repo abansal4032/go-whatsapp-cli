@@ -41,13 +41,13 @@ func main() {
 		}
 
 	case "sendText":
-		var args *utils.SendArgs
+		var args *utils.SendTextArgs
 		args, err = utils.ParseSendArgs(sendTextCmd, os.Args[2:])
 		if err != nil {
 			commandUsage(err, sendTextCmd)
 			return
 		}
-		if err = executors.SendText(args.GetContent(), args.GetReciever()); err != nil {
+		if err = executors.SendMessage(args, utils.TEXTMESSAGEKEY); err != nil {
 			return
 		}
 

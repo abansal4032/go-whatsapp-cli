@@ -5,15 +5,15 @@ import (
 	"fmt"
 )
 
-// SendArgs holds the information for sending a message.
-type SendArgs struct {
+// SendTextArgs holds the information for sending a message.
+type SendTextArgs struct {
 	to   string
 	text string
 }
 
 // ParseSendArgs parses the arguments for sending a message.
-func ParseSendArgs(f *flag.FlagSet, args []string) (*SendArgs, error) {
-	to := f.String("to", "", "the receipient of the message.")
+func ParseSendArgs(f *flag.FlagSet, args []string) (*SendTextArgs, error) {
+	to := f.String("to", "", "the recipient of the message.")
 	text := f.String("text", "", "the content of the message.")
 	if err := f.Parse(args); err != nil {
 		return nil, err
@@ -25,19 +25,19 @@ func ParseSendArgs(f *flag.FlagSet, args []string) (*SendArgs, error) {
 	if *text == "" {
 		return nil, fmt.Errorf("text field empty")
 	}
-	sendArgs := &SendArgs{
+	sendArgs := &SendTextArgs{
 		to:   *to,
 		text: *text,
 	}
 	return sendArgs, nil
 }
 
-// GetReciever gets the reciever of the message.
-func (s *SendArgs) GetReciever() string {
+// GetReceiver gets the receiver of the message.
+func (s *SendTextArgs) GetReceiver() string {
 	return s.to
 }
 
 // GetContent gets the content of the message.
-func (s *SendArgs) GetContent() string {
+func (s *SendTextArgs) GetContent() string {
 	return s.text
 }
