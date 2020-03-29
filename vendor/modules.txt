@@ -1,0 +1,31 @@
+# github.com/Baozisoftware/qrcode-terminal-go v0.0.0-20170407111555-c0650d8dff0f
+## explicit
+github.com/Baozisoftware/qrcode-terminal-go
+# github.com/Rhymen/go-whatsapp v0.1.0
+## explicit
+github.com/Rhymen/go-whatsapp
+github.com/Rhymen/go-whatsapp/binary
+github.com/Rhymen/go-whatsapp/binary/proto
+github.com/Rhymen/go-whatsapp/binary/token
+github.com/Rhymen/go-whatsapp/crypto/cbc
+github.com/Rhymen/go-whatsapp/crypto/curve25519
+github.com/Rhymen/go-whatsapp/crypto/hkdf
+# github.com/golang/protobuf v1.3.0
+github.com/golang/protobuf/proto
+# github.com/gorilla/websocket v1.4.0
+github.com/gorilla/websocket
+# github.com/mattn/go-colorable v0.1.1
+github.com/mattn/go-colorable
+# github.com/mattn/go-isatty v0.0.5
+github.com/mattn/go-isatty
+# github.com/pkg/errors v0.8.1
+github.com/pkg/errors
+# github.com/skip2/go-qrcode v0.0.0-20190110000554-dc11ecdae0a9
+github.com/skip2/go-qrcode
+github.com/skip2/go-qrcode/bitset
+github.com/skip2/go-qrcode/reedsolomon
+# golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2
+golang.org/x/crypto/curve25519
+golang.org/x/crypto/hkdf
+# golang.org/x/sys v0.0.0-20190222072716-a9d3bda3a223
+golang.org/x/sys/unix
