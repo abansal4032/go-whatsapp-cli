@@ -22,7 +22,6 @@ func errorHandler(err error) {
 }
 
 func main() {
-	sendTextCmd := flag.NewFlagSet("sendText", flag.ExitOnError)
 	var err error
 	defer func() {
 		errorHandler(err)
@@ -41,13 +40,26 @@ func main() {
 		}
 
 	case "sendText":
+		sendTextCmd := flag.NewFlagSet("sendText", flag.ExitOnError)
 		var args *utils.SendTextArgs
-		args, err = utils.ParseSendArgs(sendTextCmd, os.Args[2:])
+		args, err = utils.ParseSendTextArgs(sendTextCmd, os.Args[2:])
 		if err != nil {
 			commandUsage(err, sendTextCmd)
 			return
 		}
 		if err = executors.SendMessage(args, utils.TEXTMESSAGEKEY); err != nil {
+			return
+		}
+
+	case "sendMedia":
+		sendMediaCmd := flag.NewFlagSet("sendMedia", flag.ExitOnError)
+		var args *utils.SendMediaArgs
+		args, err = utils.ParseSendMediaArgs(sendMediaCmd, os.Args[2:])
+		if err != nil {
+			commandUsage(err, sendMediaCmd)
+			return
+		}
+		if err = executors.SendMessage(args, utils.MEDIAMESSAGEKEY); err != nil {
 			return
 		}
 

@@ -1,5 +1,8 @@
-# go-whatsapp-client
+# go-whatsapp-cli
 This repo builds over Rhymen/go-whatsapp to provide a cli for whatsapp.
+
+# Downloading
+go get github.com/abansal4032/go-whatsapp-cli
 
 # Building
 The Makefile consists of rules to help you build the project. 
@@ -22,6 +25,7 @@ Make sure you make the changes in the Makefile if you are using go 1.13. The cur
 Current commands installed:\
 **1. whatsapp-cli login**: Logs you in\
 **2. whatsapp-cli logout**: Logs you out\
-**3. whatsapp-cli sendText --to <phone_number> --text <text_message>**: Sends the text_message to the phone_number
+**3. whatsapp-cli sendText --to <phone_number> --text <text_message>**: Sends the text_message to the phone_number\
+**4. whatsapp-cli sendMedia --to <phone_number> --text <text_message> --filepath <file_path>**: Sends the file contents to the uphone_number. Currently supports sending audio, video and images.\
 
 **NOTE** : More coming soon...
