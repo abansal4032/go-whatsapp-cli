@@ -63,6 +63,11 @@ func main() {
 			return
 		}
 
+	case "startTextReceiver":
+		if err = executors.StartTextReceiver(); err != nil {
+			return
+		}
+
 	default:
 		// TODO : add a list of all permitted actions
 		err = fmt.Errorf("wrong command provided. please see below for the list of permitted actions")

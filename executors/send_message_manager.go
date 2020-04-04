@@ -147,6 +147,7 @@ func sendMessage(msg interface{}) error {
 		return fmt.Errorf("error sending message: %v", err)
 	}
 
+	wac.Disconnect()
 	fmt.Printf("successfully sent, messaageID : %v\n", msgID)
 	return nil
 }
